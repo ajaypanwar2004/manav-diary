@@ -39,17 +39,17 @@ npm install
 3. Create a `.env` file in the server directory:
 ```env
 # MongoDB Atlas Connection String
-MONGO_URI=mongodb+srv://manav:manav%40123@manav-diary.jj2tchn.mongodb.net/manav-diary
+MONGO_URI=mongodb+srv://url
 
 # JWT Secret for authentication
-JWT_SECRET=manavDiarySecret
+JWT_SECRET=Secretcode
 
 # Server Port
 PORT=5000
 
 # Admin Credentials (optional - defaults shown)
-ADMIN_EMAIL=manavdiary@001.com
-ADMIN_PASSWORD=manav@123
+ADMIN_EMAIL=admin_email
+ADMIN_PASSWORD=admin_password
 ```
 
 **Important Notes:**
@@ -113,8 +113,8 @@ The frontend will run on `http://localhost:3000`
 
 ## Default Admin Credentials
 
-- Email: `manavdiary@001.com`
-- Password: `manav@123`
+- Email: `email`
+- Password: `password`
 
 **Note**: Change these credentials in production by updating the `.env` file before first run.
 
