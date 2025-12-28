@@ -1,6 +1,5 @@
 // Load environment variables FIRST - before any other imports
 require('dotenv').config();
-
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
