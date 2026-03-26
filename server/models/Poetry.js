@@ -13,8 +13,8 @@ const poetrySchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-    enum: ['sad', 'romantic', 'broken', 'mother', 'love'],
-    lowercase: true
+    trim: true,
+    lowercase: true,
   },
   approved: {
     type: Boolean,

@@ -4,19 +4,19 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isAdmin = localStorage.getItem('adminToken');
+  const isUser = localStorage.getItem('userToken');
+  const userName = localStorage.getItem('userName');
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     navigate('/');
   };
 
-  const categories = [
-    { name: 'Sad', path: '/sad' },
-    { name: 'Romantic', path: '/romantic' },
-    { name: 'Broken', path: '/broken' },
-    { name: 'Mother', path: '/mother' },
-    { name: 'Love', path: '/love' },
-  ];
+  const handleUserLogout = () => {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userName');
+    navigate('/login');
+  };
 
   const isActive = (path) => location.pathname === path;
 
@@ -32,19 +32,11 @@ const Navbar = () => {
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {categories.map((category) => (
-              <Link
-                key={category.path}
-                to={category.path}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive(category.path)
-                    ? 'bg-purple-100 text-purple-700'
-                    : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
-                }`}
-              >
-                {category.name}
-              </Link>
-            ))}
+            {isUser && (
+              <span className="px-4 py-2 text-sm font-medium text-gray-700">
+                Welcome, {userName}
+              </span>
+            )}
             {isAdmin ? (
               <>
                 <Link
@@ -64,17 +56,36 @@ const Navbar = () => {
                   Logout
                 </button>
               </>
-            ) : (
-              <Link
-                to="/admin/login"
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive('/admin/login')
-                    ? 'bg-purple-100 text-purple-700'
-                    : 'bg-purple-600 hover:bg-purple-700 text-white'
-                }`}
+            ) : isUser ? (
+              <button
+                onClick={handleUserLogout}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
               >
-                Admin
-              </Link>
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive('/login')
+                      ? 'bg-purple-100 text-purple-700'
+                      : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
+                  }`}
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/admin/login"
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    isActive('/admin/login')
+                      ? 'bg-purple-100 text-purple-700'
+                      : 'bg-purple-600 hover:bg-purple-700 text-white'
+                  }`}
+                >
+                  Admin
+                </Link>
+              </>
             )}
           </div>
 
@@ -97,19 +108,11 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div id="mobile-menu" className="hidden md:hidden pb-4">
           <div className="flex flex-col space-y-2 mt-2">
-            {categories.map((category) => (
-              <Link
-                key={category.path}
-                to={category.path}
-                className={`px-4 py-2 rounded-md text-sm font-medium ${
-                  isActive(category.path)
-                    ? 'bg-purple-100 text-purple-700'
-                    : 'text-gray-700 hover:text-purple-600 hover:bg-purple-50'
-                }`}
-              >
-                {category.name}
-              </Link>
-            ))}
+            {isUser && (
+              <span className="px-4 py-2 text-sm font-medium text-gray-700">
+                Welcome, {userName}
+              </span>
+            )}
             {isAdmin ? (
               <>
                 <Link
@@ -129,13 +132,28 @@ const Navbar = () => {
                   Logout
                 </button>
               </>
-            ) : (
-              <Link
-                to="/admin/login"
-                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+            ) : isUser ? (
+              <button
+                onClick={handleUserLogout}
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium text-left"
               >
-                Admin
-              </Link>
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/admin/login"
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                >
+                  Admin
+                </Link>
+              </>
             )}
           </div>
         </div>

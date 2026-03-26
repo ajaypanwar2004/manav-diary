@@ -80,17 +80,15 @@ cd client
 npm install
 ```
 
-3. Create a `.env` file in the client directory (optional, defaults to localhost:5000):
-```env
-VITE_API_URL=http://localhost:5000/api
-```
+3. Optional: create `client/.env.local` only if you need to override the API base URL.
+   By default the app uses **`/api` in dev** (Vite proxies to `http://localhost:5000`). See `client/.env.example`.
 
 4. Start the development server:
 ```bash
 npm run dev
 ```
 
-The frontend will run on `http://localhost:3000`
+The frontend will run on **`http://localhost:3000`** (API on **`http://localhost:5000`**).
 
 ## Features
 

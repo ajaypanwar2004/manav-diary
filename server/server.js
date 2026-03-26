@@ -5,6 +5,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const Admin = require('./models/Admin');
+const Category = require('./models/Category');
+const HomeHero = require('./models/HomeHero');
+const { slugify } = require('./utils/slugify');
 
 const app = express();
 
@@ -22,13 +25,51 @@ app.get("/api", (req, res) => {
   res.send("API is running fine ✅");
 });
 
+// Public category list (must not live under /api/poetry/* to avoid clashing with GET /poetry/:category)
+app.get('/api/categories', async (req, res) => {
+  try {
+    const categories = await Category.find()
+      .sort({ name: 1 })
+      .select('name slug createdAt');
+    res.json(categories);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
+app.get('/api/home-hero', async (req, res) => {
+  try {
+    const doc = await HomeHero.getDocument();
+    res.json({ lines: doc.lines });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 // Routes
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/poetry', require('./routes/poetryRoutes'));
 app.use('/api/comments', require('./routes/commentRoutes'));
+app.use('/api/visitors', require('./routes/visitorRoutes'));
+
+const seedDefaultCategories = async () => {
+  try {
+    const defaultNames = ['Sad', 'Romantic', 'Broken', 'Mother', 'Love'];
+    for (const name of defaultNames) {
+      const slug = slugify(name);
+      const exists = await Category.findOne({ slug });
+      if (!exists) {
+        await Category.create({ name });
+      }
+    }
+  } catch (error) {
+    console.error('❌ Error seeding categories:', error.message);
+  }
+};
 
 // Initialize admin user if it doesn't exist
 const initializeAdmin = async () => {
@@ -106,6 +147,8 @@ const startServer = async () => {
     
     // Wait a moment for connection to stabilize
     await new Promise(resolve => setTimeout(resolve, 1000));
+
+    await seedDefaultCategories();
     
     // Initialize admin user
     await initializeAdmin();
