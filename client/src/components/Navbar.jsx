@@ -28,7 +28,7 @@ const Navbar = () => {
             <Link to="/" className="text-2xl font-poetry font-bold text-purple-600 hover:text-purple-800 transition-colors">
               Manav Diary
             </Link>
-          </div>zz
+          </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
