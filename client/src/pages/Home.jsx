@@ -10,14 +10,15 @@ const DEFAULT_HERO_LINES = [
 ];
 
 const CARD_STYLES = [
+  { color: 'from-indigo-400 to-indigo-600', icon: '💔' },
   { color: 'from-blue-400 to-blue-600', icon: '💙' },
   { color: 'from-pink-400 to-pink-600', icon: '💕' },
-  { color: 'from-gray-400 to-gray-600', icon: '💔' },
   { color: 'from-purple-400 to-purple-600', icon: '💜' },
-  { color: 'from-red-400 to-red-600', icon: '❤️' },
+
+  { color: 'from-indigo-400 to-indigo-600', icon: '👤' },
   { color: 'from-indigo-400 to-indigo-600', icon: '✨' },
-  { color: 'from-teal-400 to-teal-600', icon: '🌿' },
-  { color: 'from-rose-400 to-rose-600', icon: '🌸' },
+  { color: 'from-indigo-400 to-indigo-600', icon: '😔' },
+  
 ];
 
 const Home = () => {
@@ -168,7 +169,7 @@ const Home = () => {
               >
                 <div className="text-5xl mb-4">{style.icon}</div>
                 <h2 className="text-2xl font-poetry font-semibold text-white mb-2">{category.name}</h2>
-                <p className="text-white/90 font-elegant">Explore heartfelt verses</p>
+                {/* <p className="text-white/90 font-elegant">Explore heartfelt verses</p> */}
                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300"></div>
               </Link>
             );

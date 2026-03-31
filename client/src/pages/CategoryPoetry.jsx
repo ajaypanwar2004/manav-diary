@@ -4,13 +4,15 @@ import { poetryAPI } from '../utils/api';
 import PoetryCard from '../components/PoetryCard';
 
 const CARD_STYLES = [
+  { color: 'from-indigo-400 to-indigo-600', icon: '💔' },
   { color: 'from-blue-400 to-blue-600', icon: '💙' },
   { color: 'from-pink-400 to-pink-600', icon: '💕' },
-  { color: 'from-gray-400 to-gray-600', icon: '💔' },
   { color: 'from-purple-400 to-purple-600', icon: '💜' },
-  { color: 'from-red-400 to-red-600', icon: '❤️' },
+
+  { color: 'from-indigo-400 to-indigo-600', icon: '👤' },
   { color: 'from-indigo-400 to-indigo-600', icon: '✨' },
-  { color: 'from-teal-400 to-teal-600', icon: '🌿' },
+  { color: 'from-indigo-400 to-indigo-600', icon: '😔' },
+  
 ];
 
 const CategoryPoetry = () => {
@@ -114,7 +116,7 @@ const CategoryPoetry = () => {
         <h1 className="text-5xl md:text-6xl font-poetry font-bold text-gray-800 mb-4">
           {title}
         </h1>
-        <p className="text-xl text-gray-600 font-elegant">Words that speak to the heart</p>
+        {/* <p className="text-xl text-gray-600 font-elegant">Words that speak to the heart</p> */}
       </div>
 
       {poetry.length === 0 ? (
